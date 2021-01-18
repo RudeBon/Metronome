@@ -1,7 +1,8 @@
+import React from 'react'
 import './App.css';
 import BeatsVisual from './components/BeatsVisual'
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <h1>✨ Hello fellow musician ✨</h1>  
