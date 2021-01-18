@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.beat {
+  background-color: #3c63af;
+  min-height: 100px;
+  min-width: 100px;
+}
+
+.beatsBlock {
+  background-color: #e2e2e2;
+}
