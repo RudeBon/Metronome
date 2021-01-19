@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './App.css';
-import BeatsVisual from './components/BeatsVisual'
+import BeatsContainer from './components/BeatsContainer'
 
 const App: React.FC = () => {
+ 
+
   return (
     <div className="App">
       <h1>✨ Hello fellow musician ✨</h1>  
-      <BeatsVisual/>
+      <BeatsContainer/>
     </div>
   );
 }

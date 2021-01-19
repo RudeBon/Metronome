@@ -39,10 +39,21 @@
 
 .beat {
   background-color: #3c63af;
-  min-height: 100px;
+  min-height: 150px;
   min-width: 100px;
+  margin: 20px;
+  flex-grow: 1;
 }
 
 .beatsBlock {
   background-color: #e2e2e2;
+  width: 60%;
+  margin: auto;
+  padding: 50px;
+}
+.beats_ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  list-style-type: none;
 }
