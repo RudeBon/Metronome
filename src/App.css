@@ -57,3 +57,10 @@
   align-items: center;  
   list-style-type: none;
 }
+.stressedBeat{  
+  background-color: #bd205c;
+}
+
+.activeBeat{
+  border: 10px double rgb(37, 37, 37);
+}
