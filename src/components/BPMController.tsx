@@ -10,29 +10,41 @@ const BPMController: React.FC<BPMControllerProps> = ({
     updateIntervalsValue
 }) => {
     const [bpm, setBPM] = useState<number>(80);
-   
+    const [smallBtnClass, setSmallBtnClass] = useState<string[]>(['smallBtn'])
+
     useEffect(() => {
-        console.log('bpm value has changed', bpm);        
+        console.log('bpm value has changed', bpm);
         updateIntervalsValue(60000 / (bpm - 1))
     }, [bpm])
+
+    useEffect(() => {
+        console.log('isActive have changed');
+        if (isActive) {
+            setSmallBtnClass(prev => [...prev, 'disabled'])
+        } else if (!isActive) {
+            setSmallBtnClass(['smallBtn'])
+        }
+    }, [isActive])
 
     const changeIntervalsValue = (e: React.FormEvent<HTMLInputElement>) => {
         setBPM(+e.currentTarget.value);
     }
 
     const handleControllers = (event: React.MouseEvent, action: string) => {
-        console.log('controllers click', action);        
+        if (isActive) {
+            return
+        }
         switch (action) {
-            case 'increase': 
-                if (bpm === 260){
+            case 'increase':
+                if (bpm === 260) {
                     return
-                } 
-                setBPM(prev => prev + 1)                
+                }
+                setBPM(prev => prev + 1)
                 break;
             case 'decrease':
-                if (bpm === 20){
+                if (bpm === 20) {
                     return
-                } 
+                }
                 setBPM(prev => prev - 1)
                 break;
         }
@@ -42,15 +54,26 @@ const BPMController: React.FC<BPMControllerProps> = ({
         <>
             <h3>{bpm} BPM</h3>
             <div className="controllersContainer">
-                <div className="smallBtn" onClick={event => handleControllers(event, 'decrease')}>-</div>
+                <div
+                    className={smallBtnClass.join(' ')}
+                    onClick={event => handleControllers(event, 'decrease')}
+                >
+                    -
+                </div>
                 <input
                     type="range"
                     min="20"
                     max="260"
                     // value="bpm"
                     onChange={changeIntervalsValue}
+                    disabled={isActive}
                 />
-                <div className="smallBtn" onClick={event => handleControllers(event, 'increase')}>+</div>
+                <div
+                    className={smallBtnClass.join(' ')}
+                    onClick={event => handleControllers(event, 'increase')}
+                >
+                    +
+                </div>
             </div>
         </>
     )

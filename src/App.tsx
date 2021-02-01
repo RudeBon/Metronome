@@ -79,10 +79,20 @@ const App: React.FC = () => {
 
       <button onClick={onButtonClick}>{!isActive ? 'Start' : 'Stop'}</button>
 
-      <BPMController isActive={isActive} updateIntervalsValue={updateIntervalsValue} />
-      <BeatsAmountController updateBeats={updateBeats} beats={beats} />
+      <BPMController 
+      isActive={isActive} 
+      updateIntervalsValue={updateIntervalsValue} 
+      />
+      <BeatsAmountController 
+      updateBeats={updateBeats} 
+      beats={beats} 
+      isActive={isActive}
+      />
       <input type="checkbox" checked={isStressed} onChange={() => onToggle()}/><span>Stress 1st beat</span>
-      <BeatsContainer beats={beats} activeId={activeId} isStressed={isStressed}/>
+      <BeatsContainer 
+      beats={beats} 
+      activeId={activeId} 
+      isStressed={isStressed}/>
     </div>
   );
 }
