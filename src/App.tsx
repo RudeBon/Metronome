@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
 import BeatsContainer from './components/BeatsContainer'
+import BPMController from './components/BPMController'
 
 const App: React.FC = () => {
   const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
 
-  const [timeout, setTimeout] = useState(0);
   const [activeId, setActiveId] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
 
-  const [intervalValue, setintervalValue] = useState<number>(500);
+  const [intervalValue, setintervalValue] = useState<number>(0);
+  const [timeout, setTimeout] = useState(0);
 
-  useEffect(() => {
+  useEffect(() => {    
+    console.log(`either isActive (${isActive}) or intervalue (${intervalValue}) changed`);    
     if (isActive) {
       setTimeout(window.setInterval(() => {
         setActiveId(activeId => {
@@ -25,6 +27,11 @@ const App: React.FC = () => {
     }
     return () => clearInterval(timeout);
   }, [isActive])
+
+  useEffect(() => {
+    console.log('intervalValue has changed', intervalValue);
+    
+  }, [intervalValue])
 
   // const startTicking = (event: React.MouseEvent) => {
   //     setIsActive(true)
@@ -42,19 +49,29 @@ const App: React.FC = () => {
   // }
 
   const onButtonClick = (event: React.MouseEvent) => {
+    console.log(`stsrt/stop btn click: isActive ${isActive}`)    
     setIsActive(prev => !prev)
+    if (isActive) {
+      setActiveId(0)
+    }
   }
+
+  const updateIntervalsValue = (value:number) => {
+    setintervalValue(value)
+  }  
 
   return (
     <div className="App">
       <h1>✨ Hello fellow musician ✨</h1>
-      <BeatsContainer beats={beats} activeId={activeId} />
 
       {/* {!isActive
         ? <button onClick={startTicking}>Start</button>
         : <button onClick={stopTicking}>Stop</button>} */}
 
       <button onClick={onButtonClick}>{!isActive ? 'Start' : 'Stop'}</button>
+
+      <BPMController isActive={isActive} updateIntervalsValue={updateIntervalsValue}/>
+      <BeatsContainer beats={beats} activeId={activeId} />
     </div>
 
   );
