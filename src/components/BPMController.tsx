@@ -24,13 +24,13 @@ const BPMController: React.FC<BPMControllerProps> = ({
         console.log('controllers click', action);        
         switch (action) {
             case 'increase': 
-                if (bpm === 20 || bpm === 260){
+                if (bpm === 260){
                     return
                 } 
                 setBPM(prev => prev + 1)                
                 break;
             case 'decrease':
-                if (bpm === 20 || bpm === 260){
+                if (bpm === 20){
                     return
                 } 
                 setBPM(prev => prev - 1)
