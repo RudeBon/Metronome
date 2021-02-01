@@ -13,6 +13,8 @@ const App: React.FC = () => {
   const [intervalValue, setintervalValue] = useState<number>(0);
   const [timeout, setTimeout] = useState(0);
 
+  const [isStressed, setIsStressed] = useState<boolean>(false)
+
   useEffect(() => {
     console.log(`either isActive (${isActive}) or intervalue (${intervalValue}) changed`);
     if (isActive) {
@@ -62,6 +64,9 @@ const App: React.FC = () => {
   const updateBeats = (value: number[]) => {
     setBeats(value)
   }
+  const onToggle = () => {
+    setIsStressed(prev => !prev)
+  }
 
 
   return (
@@ -76,7 +81,8 @@ const App: React.FC = () => {
 
       <BPMController isActive={isActive} updateIntervalsValue={updateIntervalsValue} />
       <BeatsAmountController updateBeats={updateBeats} beats={beats} />
-      <BeatsContainer beats={beats} activeId={activeId} />
+      <input type="checkbox" checked={isStressed} onChange={() => onToggle()}/><span>Stress 1st beat</span>
+      <BeatsContainer beats={beats} activeId={activeId} isStressed={isStressed}/>
     </div>
   );
 }
