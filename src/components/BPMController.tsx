@@ -35,6 +35,20 @@ const BPMController: React.FC<BPMControllerProps> = ({
             return
         }
         switch (action) {
+            case 'increase10':
+                if (bpm >= 250) {
+                    setBPM(260)
+                    return
+                }                
+                setBPM(prev => prev + 10)
+                break;
+            case 'decrease10':
+                if (bpm <= 30) {
+                    setBPM(20)
+                    return
+                }                
+                setBPM(prev => prev - 10)
+                break;
             case 'increase':
                 if (bpm === 260) {
                     return
@@ -56,6 +70,12 @@ const BPMController: React.FC<BPMControllerProps> = ({
             <div className="controllersContainer">
                 <div
                     className={smallBtnClass.join(' ')}
+                    onClick={event => handleControllers(event, 'decrease10')}
+                >
+                    - 10
+                </div>
+                <div
+                    className={smallBtnClass.join(' ')}
                     onClick={event => handleControllers(event, 'decrease')}
                 >
                     -
@@ -73,6 +93,12 @@ const BPMController: React.FC<BPMControllerProps> = ({
                     onClick={event => handleControllers(event, 'increase')}
                 >
                     +
+                </div>
+                <div
+                    className={smallBtnClass.join(' ')}
+                    onClick={event => handleControllers(event, 'increase10')}
+                >
+                    + 10
                 </div>
             </div>
         </>
