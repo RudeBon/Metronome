@@ -1,62 +1,47 @@
 import React, { useState, useEffect } from 'react'
 
 type BPMControllerProps = {
-    isActive: boolean,
     updateIntervalsValue(value: number): void
 }
 
-const BPMController: React.FC<BPMControllerProps> = ({
-    isActive,
-    updateIntervalsValue
-}) => {
+const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue }) => {
     const [bpm, setBPM] = useState<number>(80);
-    const [smallBtnClass, setSmallBtnClass] = useState<string[]>(['smallBtn'])
+    const maxBpm: number = 260;
+    const minBpm: number = 20;
 
     useEffect(() => {
         console.log('bpm value has changed', bpm);
         updateIntervalsValue(60000 / (bpm - 1))
     }, [bpm])
 
-    useEffect(() => {
-        console.log('isActive have changed');
-        if (isActive) {
-            setSmallBtnClass(prev => [...prev, 'disabled'])
-        } else if (!isActive) {
-            setSmallBtnClass(['smallBtn'])
-        }
-    }, [isActive])
-
     const changeIntervalsValue = (e: React.FormEvent<HTMLInputElement>) => {
         setBPM(+e.currentTarget.value);
     }
 
     const handleControllers = (event: React.MouseEvent, action: string) => {
-        if (isActive) {
-            return
-        }
         switch (action) {
             case 'increase10':
-                if (bpm >= 250) {
-                    setBPM(260)
+                if (bpm >= maxBpm - 10) {
+                    setBPM(maxBpm)
                     return
-                }                
+                }
                 setBPM(prev => prev + 10)
                 break;
             case 'decrease10':
-                if (bpm <= 30) {
-                    setBPM(20)
+                if (bpm <= minBpm + 10) {
+                    setBPM(minBpm)
                     return
-                }                
+                }
                 setBPM(prev => prev - 10)
                 break;
             case 'increase':
-                if (bpm === 260) {
+                if (bpm === maxBpm) {
                     return
                 }
                 setBPM(prev => prev + 1)
                 break;
             case 'decrease':
-                if (bpm === 20) {
+                if (bpm === minBpm) {
                     return
                 }
                 setBPM(prev => prev - 1)
@@ -69,33 +54,32 @@ const BPMController: React.FC<BPMControllerProps> = ({
             <h3>{bpm} BPM</h3>
             <div className="controllersContainer">
                 <div
-                    className={smallBtnClass.join(' ')}
+                    className='smallBtn'
                     onClick={event => handleControllers(event, 'decrease10')}
                 >
                     - 10
                 </div>
                 <div
-                    className={smallBtnClass.join(' ')}
+                    className='smallBtn'
                     onClick={event => handleControllers(event, 'decrease')}
                 >
                     -
                 </div>
                 <input
                     type="range"
-                    min="20"
-                    max="260"
+                    min={minBpm}
+                    max={maxBpm}
                     // value="bpm"
                     onChange={changeIntervalsValue}
-                    disabled={isActive}
                 />
                 <div
-                    className={smallBtnClass.join(' ')}
+                    className='smallBtn'
                     onClick={event => handleControllers(event, 'increase')}
                 >
                     +
                 </div>
                 <div
-                    className={smallBtnClass.join(' ')}
+                    className='smallBtn'
                     onClick={event => handleControllers(event, 'increase10')}
                 >
                     + 10

@@ -2,48 +2,55 @@ import React, { useState, useEffect } from 'react'
 import './App.css';
 import BeatsContainer from './components/BeatsContainer'
 import BPMController from './components/BPMController'
-import BeatsAmountController from './components/beatsAmountController'
-import { SoundComponent } from './components/soundSomponent';
-const boopPath = require('./assets/sounds/boop.mp3')
-const stressedBoopPath = require('./assets/sounds/stressedBoop.mp3')
+import BeatsAmountController from './components/BeatsAmountController'
+import { SoundComponent } from './components/soundSomponent'
+const soundPath = require('./assets/sounds/boop.mp3')
+const stressedSoundPath = require('./assets/sounds/stressedBoop.mp3')
 
 const App: React.FC = () => {
   const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
   const [activeId, setActiveId] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [intervalValue, setintervalValue] = useState<number>(0);
-  const [timeout, setTimeout] = useState(0);
-  const [isStressed, setIsStressed] = useState<boolean>(false)
+  const [timeout, setTimeout] = useState<any>(0);
+  const [isStressed, setIsStressed] = useState<boolean>(false);
 
-  const boop = new Audio(boopPath.default);
-  const stressedBoop = new Audio(stressedBoopPath.default);  
+  const sound = new Audio(soundPath.default);
+  const stressedSound = new Audio(stressedSoundPath.default);
+
+  const playSound = () => {
+    if (isStressed && activeId === 0) {
+      stressedSound.play()
+      console.log('stressed sound', activeId);
+    } else {
+      sound.play();
+      console.log('sound', activeId);
+    }
+  }
+
+  const intervalCallback = () => {
+    playSound()
+    setActiveId(activeId => {
+      if (activeId >= beats.length - 1) {
+        return 0
+      }
+      return activeId + 1;
+    });
+  }
 
   useEffect(() => {
-    if (isActive) {
-      setTimeout(window.setInterval(() => {        
-        setActiveId(activeId => {
-          if (activeId >= beats.length - 1) {
-            return 0
-          }
-          return activeId + 1;
-        });
-        boop.play();
-        if(isStressed && activeId === 0) {
-          stressedBoop.play()
-          console.log('stressed boop', activeId);      
-        } else {
-          boop.play();
-          console.log('boop', activeId); 
-        }
-      }, intervalValue))
+    if (isActive && timeout !== 0) {
+      clearInterval(timeout);
+      setTimeout(window.setInterval(intervalCallback, intervalValue))
+    } else if (isActive && timeout === 0) {
+      setTimeout(window.setInterval(intervalCallback, intervalValue))
     } else if (!isActive) {
       clearInterval(timeout);
+      setTimeout(0)
     }
-    return () => clearInterval(timeout);
-  }, [isActive])
 
-  useEffect(() => {
-  }, [intervalValue])
+    return () => clearInterval(timeout);
+  }, [isActive, isStressed, activeId, intervalValue])
 
   // const startTicking = (event: React.MouseEvent) => {
   //     setIsActive(true)
@@ -86,20 +93,22 @@ const App: React.FC = () => {
         : <button onClick={stopTicking}>Stop</button>} */}
 
       <button onClick={onButtonClick}>{!isActive ? 'Start' : 'Stop'}</button>
-      <button onClick={() => { boop.play(); console.log('boop'); }}>play audio</button>
 
       <SoundComponent />
 
       <BPMController
-        isActive={isActive}
         updateIntervalsValue={updateIntervalsValue}
       />
       <BeatsAmountController
         updateBeats={updateBeats}
         beats={beats}
-        isActive={isActive}
       />
-      <input type="checkbox" checked={isStressed} onChange={() => onToggle()} /><span>Stress 1st beat</span>
+      <input
+        type="checkbox"
+        checked={isStressed}
+        onChange={() => onToggle()}
+      />
+      <span>Stress 1st beat</span>
       <BeatsContainer
         beats={beats}
         activeId={activeId}
