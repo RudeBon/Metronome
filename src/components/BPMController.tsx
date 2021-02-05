@@ -54,35 +54,37 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue }) =
             <h3>{bpm} BPM</h3>
             <div className="controllersContainer">
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'decrease10')}
                 >
-                    - 10
+                    -10
                 </div>
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'decrease')}
                 >
-                    -
+                    <i className="material-icons">remove</i>
                 </div>
-                <input
-                    type="range"
-                    min={minBpm}
-                    max={maxBpm}
-                    // value="bpm"
-                    onChange={changeIntervalsValue}
-                />
+                <p className="range-field">
+                    <input
+                        type="range"
+                        min={minBpm}
+                        max={maxBpm}
+                        // value="bpm"
+                        onChange={changeIntervalsValue}
+                    />
+                </p>
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'increase')}
                 >
-                    +
+                    <i className="material-icons">add</i>
                 </div>
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'increase10')}
                 >
-                    + 10
+                    +10
                 </div>
             </div>
         </>

@@ -3,7 +3,6 @@ import './App.css';
 import BeatsContainer from './components/BeatsContainer'
 import BPMController from './components/BPMController'
 import BeatsAmountController from './components/BeatsAmountController'
-import { SoundComponent } from './components/soundSomponent'
 const soundPath = require('./assets/sounds/boop.mp3')
 const stressedSoundPath = require('./assets/sounds/stressedBoop.mp3')
 
@@ -52,26 +51,12 @@ const App: React.FC = () => {
     return () => clearInterval(timeout);
   }, [isActive, isStressed, activeId, intervalValue])
 
-  // const startTicking = (event: React.MouseEvent) => {
-  //     setIsActive(true)
-  //     console.log('after click on btn', isActive);
-  //     // const ticker = setInterval(() => {
-  //     //     console.log('tick');
-  //     // }, intervalValue)
-  // }
-
-  // const stopTicking = (event: React.MouseEvent) => {
-  //     setIsActive(false)
-  //     // setActiveId(0)      
-  //     console.log('after click on btn', isActive);
-  //     // clearInterval(ticker)       
-  // }
-
   const onButtonClick = (event: React.MouseEvent) => {
     setIsActive(prev => !prev)
     if (isActive) {
       setActiveId(0)
     }
+
   }
 
   const updateIntervalsValue = (value: number) => {
@@ -88,27 +73,35 @@ const App: React.FC = () => {
     <div className="App">
       <h1>✨ Hello fellow musician ✨</h1>
 
-      {/* {!isActive
-        ? <button onClick={startTicking}>Start</button>
-        : <button onClick={stopTicking}>Stop</button>} */}
-
-      <button onClick={onButtonClick}>{!isActive ? 'Start' : 'Stop'}</button>
-
-      <SoundComponent />
+      <button
+        onClick={onButtonClick}
+        className={
+          !isActive
+            ? 'waves-effect waves-light btn-large teal accent-4'
+            : 'waves-effect waves-light btn-large blue-grey lighten-3'
+        }
+      >
+        {!isActive ? 'Start' : 'Stop'}
+      </button>
 
       <BPMController
         updateIntervalsValue={updateIntervalsValue}
       />
-      <BeatsAmountController
-        updateBeats={updateBeats}
-        beats={beats}
-      />
-      <input
-        type="checkbox"
-        checked={isStressed}
-        onChange={() => onToggle()}
-      />
-      <span>Stress 1st beat</span>
+      <div className='flex'>
+        <label>
+          <input
+            type="checkbox"
+            checked={isStressed}
+            onChange={() => onToggle()}
+          />
+          <span>Stress 1st beat</span>
+        </label>
+        <BeatsAmountController
+          updateBeats={updateBeats}
+          beats={beats}
+        />
+      </div>
+
       <BeatsContainer
         beats={beats}
         activeId={activeId}

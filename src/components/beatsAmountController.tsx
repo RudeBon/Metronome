@@ -10,14 +10,14 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
     beats,
 }) => {
     const [amount, setAmount] = useState<number>(beats.length);
-    const minAmount:number = 2;
-    const maxAmount:number = 12;
+    const minAmount: number = 2;
+    const maxAmount: number = 12;
 
     const handleControllers = (event: React.MouseEvent, action: string) => {
         console.log('controllers click', action);
         switch (action) {
             case 'increase':
-                if (amount === maxAmount) { 
+                if (amount === maxAmount) {
                     return
                 }
                 let increasedArr: number[] = beats.concat(beats.length)
@@ -39,17 +39,17 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
         <>
             <div className="controllersContainer">
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'decrease')}
                 >
-                    -
+                    <i className="material-icons">remove</i>
                 </div>
-                <h3>{amount}</h3>
+                <h5>{amount}</h5>
                 <div
-                    className='smallBtn'
+                    className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'increase')}
                 >
-                    +
+                    <i className="material-icons">add</i>
                 </div>
             </div>
         </>

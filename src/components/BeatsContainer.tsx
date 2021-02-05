@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React  from 'react'
 
 type BeatsContainerProps = {
     beats: number[]
@@ -17,8 +17,8 @@ const BeatsContainer: React.FC<BeatsContainerProps> = ({ beats, activeId, isStre
             if (num === 0 && isStressed) {
                 classes.push('stressedBeat')
             }
-            return <li key={num} >
-                <div className={classes.join(' ')}></div>
+            return <li key={num} className={classes.join(' ')}>
+                <div></div>
             </li>
         })
     }

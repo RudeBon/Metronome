@@ -1,66 +1,52 @@
 .App {
+  width: 60%;
+  margin:  auto;
+  padding: 50px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h5{
+  margin:5px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.controllersContainer{  
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.btn-small{
+  margin: 5px;
+  color: #263238 ;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.beat {
-  background-color: #3c63af;
-  min-height: 150px;
-  min-width: 100px;
-  margin: 20px;
-  flex-grow: 1;
-}
-
 .beatsBlock {
-  background-color: #e2e2e2;
-  width: 60%;
+  width: 80%;
   margin: auto;
-  padding: 50px;
 }
-.beats_ul{
-  display: flex;
-  justify-content: center;
-  align-items: center;  
+.beats_ul{   
   list-style-type: none;
+  display: flex;
+  width: 100%;
+}
+.beat {  
+  border-radius: 2px;
+  background-color: #cfd8dc;
+  min-height: 100px;
+  flex: 1;  
+  padding: 10px 0;
+  margin: 10px;
+}
+.activeBeat{
+  background-color: #4db6ac;
+  box-shadow: 1px 1px 6px rgba(39, 88, 88, 0.3);
 }
 .stressedBeat{  
-  background-color: #bd205c;
+  background-color: #90a4ae;  
 }
-
-.activeBeat{
-  border: 10px double rgb(37, 37, 37);
+.controllersContainer{  
+  display: flex;  
+  justify-content: center;
+}
+.flex{
+  width: 80%;
+  margin:auto;
+  display: flex;  
+  justify-content: space-between;
+  align-items: center; 
 }
