@@ -1,8 +1,8 @@
-import React  from 'react'
+import React from 'react'
 
 type BeatsContainerProps = {
     beats: number[]
-    activeId: number
+    activeId: number|null
     isStressed: boolean
 }
 
@@ -25,7 +25,6 @@ const BeatsContainer: React.FC<BeatsContainerProps> = ({ beats, activeId, isStre
 
     return (
         <div className="beatsBlock">
-            <h3>Actual beat: {activeId}</h3>
             <ul className='beats_ul'>
                 {beatBlocks()}
             </ul>

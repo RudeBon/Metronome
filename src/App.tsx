@@ -8,7 +8,7 @@ const stressedSoundPath = require('./assets/sounds/stressedBoop.mp3')
 
 const App: React.FC = () => {
   const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
-  const [activeId, setActiveId] = useState<number>(0);
+  const [activeId, setActiveId] = useState<number | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [intervalValue, setintervalValue] = useState<number>(0);
   const [timeout, setTimeout] = useState<any>(0);
@@ -17,24 +17,25 @@ const App: React.FC = () => {
   const sound = new Audio(soundPath.default);
   const stressedSound = new Audio(stressedSoundPath.default);
 
-  const playSound = () => {
-    if (isStressed && activeId === 0) {
+  const playSound = (actual: number | null) => {
+    if (isStressed && actual === 0) {
       stressedSound.play()
-      console.log('stressed sound', activeId);
     } else {
       sound.play();
-      console.log('sound', activeId);
     }
   }
 
   const intervalCallback = () => {
-    playSound()
+    let actual = null
     setActiveId(activeId => {
-      if (activeId >= beats.length - 1) {
-        return 0
+      if (activeId! >= beats.length - 1 || activeId === null) {
+        actual = 0
+        return actual
       }
-      return activeId + 1;
+      actual = activeId! + 1;
+      return actual
     });
+    playSound(actual)
   }
 
   useEffect(() => {
@@ -54,9 +55,8 @@ const App: React.FC = () => {
   const onButtonClick = (event: React.MouseEvent) => {
     setIsActive(prev => !prev)
     if (isActive) {
-      setActiveId(0)
+      setActiveId(null)
     }
-
   }
 
   const updateIntervalsValue = (value: number) => {
