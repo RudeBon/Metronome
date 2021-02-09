@@ -73,7 +73,6 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue }) =
                         min={minBpm}
                         max={maxBpm}
                         ref={rangeRef}
-                        // value="bpm"
                         onChange={changeIntervalsValue}
                     />
                 </p>
