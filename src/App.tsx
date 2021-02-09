@@ -3,6 +3,7 @@ import './App.css';
 import BeatsContainer from './components/BeatsContainer'
 import BPMController from './components/BPMController'
 import BeatsAmountController from './components/BeatsAmountController'
+import TapTempo from './components/TapTempo';
 const soundPath = require('./assets/sounds/boop.mp3')
 const stressedSoundPath = require('./assets/sounds/stressedBoop.mp3')
 
@@ -83,6 +84,9 @@ const App: React.FC = () => {
       >
         {!isActive ? 'Start' : 'Stop'}
       </button>
+      <TapTempo
+        updateIntervalsValue={updateIntervalsValue}
+      />
 
       <BPMController
         updateIntervalsValue={updateIntervalsValue}
