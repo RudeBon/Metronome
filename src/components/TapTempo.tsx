@@ -83,7 +83,7 @@ const TapTempo: React.FC<TapTempoProps> = ({ updateIntervalsValue }) => {
     return (
         <button
             onClick={handleTap}
-            className='waves-effect waves-light btn-large blue-grey lighten-3'
+            className='waves-effect waves-light btn-large m5 blue-grey lighten-3'
         >
             Tap Tempo
         </button>

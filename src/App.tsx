@@ -78,8 +78,8 @@ const App: React.FC = () => {
         onClick={onButtonClick}
         className={
           !isActive
-            ? 'waves-effect waves-light btn-large teal accent-4'
-            : 'waves-effect waves-light btn-large blue-grey lighten-3'
+            ? 'waves-effect waves-light btn-large m5 teal accent-4'
+            : 'waves-effect waves-light btn-large m5 blue-grey lighten-3'
         }
       >
         {!isActive ? 'Start' : 'Stop'}
