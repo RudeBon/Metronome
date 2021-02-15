@@ -1,19 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 type BPMControllerProps = {
-    updateIntervalsValue(value: number): void
+    updateIntervalsValue(value: number): void,
+    intervalValue: number
 }
 
-const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue }) => {
+const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, intervalValue }) => {
     const [bpm, setBPM] = useState<number>(80);
+    const [displayNumber, setDisplayNumber] = useState<number>(80);
     const maxBpm: number = 260;
     const minBpm: number = 20;
     const rangeRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
+        let i = 60000 / intervalValue + 1;
+        rangeRef.current!.value = i.toString();
+        setDisplayNumber(Math.round(i))
+    }, [intervalValue])
+
+    useEffect(() => {
         console.log('bpm value has changed', bpm);
         rangeRef.current!.value = bpm.toString();
-        updateIntervalsValue(60000 / (bpm - 1))
+        updateIntervalsValue(60000 / (bpm - 1))        
+        setDisplayNumber(Math.round(bpm))
     }, [bpm])
 
     const changeIntervalsValue = (e: React.FormEvent<HTMLInputElement>) => {
@@ -53,7 +62,7 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue }) =
 
     return (
         <>
-            <h3>{bpm} BPM</h3>
+            <h3>{displayNumber} BPM</h3>
             <div className="controllersContainer">
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
