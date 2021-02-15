@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Metronome/static/css/main.6cf9bbe0.chunk.css",
-    "main.js": "/Metronome/static/js/main.c407bde3.chunk.js",
-    "main.js.map": "/Metronome/static/js/main.c407bde3.chunk.js.map",
+    "main.css": "/Metronome/static/css/main.e10ed344.chunk.css",
+    "main.js": "/Metronome/static/js/main.5c77fe22.chunk.js",
+    "main.js.map": "/Metronome/static/js/main.5c77fe22.chunk.js.map",
     "runtime-main.js": "/Metronome/static/js/runtime-main.31cf9107.js",
     "runtime-main.js.map": "/Metronome/static/js/runtime-main.31cf9107.js.map",
     "static/js/2.1e2d4eed.chunk.js": "/Metronome/static/js/2.1e2d4eed.chunk.js",
     "static/js/2.1e2d4eed.chunk.js.map": "/Metronome/static/js/2.1e2d4eed.chunk.js.map",
     "index.html": "/Metronome/index.html",
-    "static/css/main.6cf9bbe0.chunk.css.map": "/Metronome/static/css/main.6cf9bbe0.chunk.css.map",
+    "static/css/main.e10ed344.chunk.css.map": "/Metronome/static/css/main.e10ed344.chunk.css.map",
     "static/js/2.1e2d4eed.chunk.js.LICENSE.txt": "/Metronome/static/js/2.1e2d4eed.chunk.js.LICENSE.txt",
     "static/media/boop.mp3": "/Metronome/static/media/boop.adb635a2.mp3",
     "static/media/stressedBoop.mp3": "/Metronome/static/media/stressedBoop.4cab99db.mp3"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.31cf9107.js",
     "static/js/2.1e2d4eed.chunk.js",
-    "static/css/main.6cf9bbe0.chunk.css",
-    "static/js/main.c407bde3.chunk.js"
+    "static/css/main.e10ed344.chunk.css",
+    "static/js/main.5c77fe22.chunk.js"
   ]
 }
