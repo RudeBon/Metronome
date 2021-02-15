@@ -71,54 +71,44 @@ const ContainerComponent: React.FC<{}> = () => {
 
   return (
     <>
-      { window.screen.width < 768
-        ? <>
-          <h1>Hello fellow musician ✨✨✨</h1>
-          <br />
-          <p>Oh, are you using your smartphone? </p>
-          <p>Please switch to a <b>desktop</b>. You won't regret it 😉 </p>
-        </>
-        : <>
-          <h1>✨ Hello fellow musician ✨</h1>
-          <button
-            onClick={onButtonClick}
-            className={
-              !isActive
-                ? 'waves-effect waves-light btn-large m5 teal accent-4'
-                : 'waves-effect waves-light btn-large m5 blue-grey lighten-3'
-            }
-          >
-            {!isActive ? 'Start' : 'Stop'}
-          </button>
-          <TapTempo
-            updateIntervalsValue={updateIntervalsValue}
-          />
+      <h1>✨ Hello fellow musician ✨</h1>
+      <button
+        onClick={onButtonClick}
+        className={
+          !isActive
+            ? 'waves-effect waves-light btn-large m5 teal accent-4'
+            : 'waves-effect waves-light btn-large m5 blue-grey lighten-3'
+        }
+      >
+        {!isActive ? 'Start' : 'Stop'}
+      </button>
+      <TapTempo
+        updateIntervalsValue={updateIntervalsValue}
+      />
 
-          <BPMController
-            updateIntervalsValue={updateIntervalsValue}
-            intervalValue={intervalValue}
+      <BPMController
+        updateIntervalsValue={updateIntervalsValue}
+        intervalValue={intervalValue}
+      />
+      <div className='flex'>
+        <label>
+          <input
+            type="checkbox"
+            checked={isStressed}
+            onChange={() => onToggle()}
           />
-          <div className='flex'>
-            <label>
-              <input
-                type="checkbox"
-                checked={isStressed}
-                onChange={() => onToggle()}
-              />
-              <span>Stress 1st beat</span>
-            </label>
-            <BeatsAmountController
-              updateBeats={updateBeats}
-              beats={beats}
-            />
-          </div>
+          <span>Stress 1st beat</span>
+        </label>
+        <BeatsAmountController
+          updateBeats={updateBeats}
+          beats={beats}
+        />
+      </div>
 
-          <BeatsContainer
-            beats={beats}
-            activeId={activeId}
-            isStressed={isStressed} />
-        </>
-      }
+      <BeatsContainer
+        beats={beats}
+        activeId={activeId}
+        isStressed={isStressed} />
     </>
   );
 }

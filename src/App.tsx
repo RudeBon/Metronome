@@ -1,12 +1,17 @@
 import React from 'react'
 import './App.css';
 import ContainerComponent from './components/ContainerComponent';
+import MobileStub from './components/MobileStub';
 
 export default class App extends React.Component<{}> {
   public render() {
     return (
       <div className="App">
-        <ContainerComponent />
+        {
+          window.screen.width < 768 
+          ? <MobileStub />
+          : <ContainerComponent />
+        }        
       </div>
     );
   }
