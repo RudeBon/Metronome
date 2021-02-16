@@ -6,63 +6,65 @@ type BPMControllerProps = {
 }
 
 const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, intervalValue }) => {
-    const [bpm, setBPM] = useState<number>(80);
-    const [displayNumber, setDisplayNumber] = useState<number>(80);
+    const [bpm, setBPM] = useState<number | null>(null);
+    const [prevInterval, setPrevInterval] = useState<number | null>(null);
     const maxBpm: number = 260;
     const minBpm: number = 20;
     const rangeRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        let i = 60000 / intervalValue + 1;
-        rangeRef.current!.value = i.toString();
-        setDisplayNumber(Math.round(i))
+        if (prevInterval === null || intervalValue != prevInterval) {
+            let bpmFromInterval = 60000 / intervalValue + 1;
+            rangeRef.current!.value = bpmFromInterval.toString();
+            setBPM(bpmFromInterval)
+        }
     }, [intervalValue])
 
     useEffect(() => {
-        console.log('bpm value has changed', bpm);
-        rangeRef.current!.value = bpm.toString();
-        updateIntervalsValue(60000 / (bpm - 1))        
-        setDisplayNumber(Math.round(bpm))
+        if (bpm != null) {
+            rangeRef.current!.value = bpm.toString();
+            updateIntervalsValue(60000 / (bpm - 1));
+        }
     }, [bpm])
 
-    const changeIntervalsValue = (e: React.FormEvent<HTMLInputElement>) => {
+    const changeBpmByRange = (e: React.FormEvent<HTMLInputElement>) => {
         setBPM(+e.currentTarget.value);
     }
 
     const handleControllers = (event: React.MouseEvent, action: string) => {
         switch (action) {
             case 'increase10':
-                if (bpm >= maxBpm - 10) {
+                if (bpm! >= maxBpm - 10) {
                     setBPM(maxBpm)
                     return
                 }
-                setBPM(prev => prev + 10)
+                setBPM(prev => prev! + 10)
                 break;
             case 'decrease10':
-                if (bpm <= minBpm + 10) {
+                if (bpm! <= minBpm + 10) {
                     setBPM(minBpm)
                     return
                 }
-                setBPM(prev => prev - 10)
+                setBPM(prev => prev! - 10)
                 break;
             case 'increase':
                 if (bpm === maxBpm) {
                     return
                 }
-                setBPM(prev => prev + 1)
+                setBPM(prev => prev! + 1)
                 break;
             case 'decrease':
                 if (bpm === minBpm) {
                     return
                 }
-                setBPM(prev => prev - 1)
+                setBPM(prev => prev! - 1)
                 break;
         }
     }
 
     return (
         <>
-            <h3>{displayNumber} BPM</h3>
+            <h3>{Math.round(bpm!)} BPM</h3>
             <div className="controllersContainer">
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
@@ -82,7 +84,7 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, int
                         min={minBpm}
                         max={maxBpm}
                         ref={rangeRef}
-                        onChange={changeIntervalsValue}
+                        onChange={changeBpmByRange}
                     />
                 </p>
                 <div

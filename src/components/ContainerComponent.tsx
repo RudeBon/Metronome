@@ -10,7 +10,7 @@ const ContainerComponent: React.FC<{}> = () => {
   const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [intervalValue, setintervalValue] = useState<number>(0);
+  const [intervalValue, setintervalValue] = useState<number>(760);
   const [timeout, setTimeout] = useState<any>(0);
   const [isStressed, setIsStressed] = useState<boolean>(false);
 
