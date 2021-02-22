@@ -70,7 +70,7 @@ const ContainerComponent: React.FC<{}> = () => {
   }
 
   return (
-    <>
+    <div className="mobile-grid-container">
       <h1>✨ Hello fellow musician ✨</h1>
       <button
         onClick={onButtonClick}
@@ -109,7 +109,7 @@ const ContainerComponent: React.FC<{}> = () => {
         beats={beats}
         activeId={activeId}
         isStressed={isStressed} />
-    </>
+    </div>
   );
 }
 
