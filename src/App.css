@@ -1,18 +1,18 @@
 .App {
   width: 60%;
   margin:  auto;
-  padding: 50px;
   text-align: center;
-}
-h5{
-  margin:5px;
 }
 .controllersContainer{  
   display: flex;
   align-items: center;
 }
+.range-field{
+  width: 50%;
+  margin: 0.4em;
+}
 .btn-small{
-  margin: 5px;
+  margin: 0.4em;
   color: #263238 ;
 }
 .beatsBlock {
@@ -22,15 +22,13 @@ h5{
 .beats_ul{   
   list-style-type: none;
   display: flex;
-  width: 100%;
 }
 .beat {  
   border-radius: 2px;
   background-color: #cfd8dc;
-  min-height: 100px;
+  height: 100px;
   flex: 1;  
-  padding: 10px 0;
-  margin: 10px;
+  margin: 0.4em;
 }
 .activeBeat{
   background-color: #4db6ac;
@@ -38,6 +36,9 @@ h5{
 }
 .stressedBeat{  
   background-color: #90a4ae;  
+}
+.stressedBeat.activeBeat{  
+  background-color: #00897b  ;
 }
 .controllersContainer{  
   display: flex;  
@@ -51,5 +52,42 @@ h5{
   align-items: center; 
 }
 .m5{
-  margin: 5px;
+  margin: 0.4em;
+}
+@media only screen and (max-width: 768px) {
+  .App {
+    width: 90%;
+  }
+  .beatsBlock {
+    width: 100%;
+  }
+  .beats_ul{   
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  .beat { 
+    max-width: 33%;    
+    min-width: 12%;
+    height: 80px;
+  }
+  .flex{
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  h1{
+    font-size: 3.2em;
+  }
+  h3{
+    font-size: 2.4em;
+  }
+  .range-field{
+    width: 100%;
+    padding: 0 1.8em;
+    order: -1;
+    margin: 0;
+  }
+  .controllersContainer{
+    flex-wrap: wrap;
+    margin: 0.6em 0
+  }
 }

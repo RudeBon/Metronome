@@ -44,7 +44,7 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
                 >
                     <i className="material-icons">remove</i>
                 </div>
-                <h5>{amount}</h5>
+                <h5 className="m5">{amount}</h5>
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
                     onClick={event => handleControllers(event, 'increase')}

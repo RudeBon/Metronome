@@ -7,11 +7,7 @@ export default class App extends React.Component<{}> {
   public render() {
     return (
       <div className="App">
-        {
-          window.screen.width < 768 
-          ? <MobileStub />
-          : <ContainerComponent />
-        }        
+        <ContainerComponent />
       </div>
     );
   }
