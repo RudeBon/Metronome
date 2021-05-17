@@ -2,18 +2,17 @@ import React, { useState, useEffect, useRef } from 'react'
 
 type BPMControllerProps = {
     updateIntervalsValue(value: number): void,
-    intervalValue: number
+    intervalValue: number | null;
 }
 
 const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, intervalValue }) => {
     const [bpm, setBPM] = useState<number | null>(null);
-    const [prevInterval, setPrevInterval] = useState<number | null>(null);
     const maxBpm: number = 260;
     const minBpm: number = 20;
     const rangeRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        if (prevInterval === null || intervalValue != prevInterval) {
+        if (intervalValue != null) {
             let bpmFromInterval = 60000 / intervalValue + 1;
             rangeRef.current!.value = bpmFromInterval.toString();
             setBPM(bpmFromInterval)

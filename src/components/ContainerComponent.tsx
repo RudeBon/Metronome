@@ -10,7 +10,7 @@ const ContainerComponent: React.FC<{}> = () => {
   const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [intervalValue, setintervalValue] = useState<number>(760);
+  const [intervalValue, setintervalValue] = useState<number | null>(null);
   const [timeout, setTimeout] = useState<any>(0);
   const [isStressed, setIsStressed] = useState<boolean>(false);
 
@@ -24,6 +24,17 @@ const ContainerComponent: React.FC<{}> = () => {
       sound.play();
     }
   }
+  
+  useEffect(() => {
+    const intervalFromLocalstorage = localStorage.getItem('interval');
+    if (intervalFromLocalstorage != null) {
+      console.log('there is interval');
+      setintervalValue(+intervalFromLocalstorage)
+    } else {
+      setintervalValue(760);
+      console.log('no interval');
+    }
+  }, [])
 
   const intervalCallback = () => {
     let actual = null
@@ -41,9 +52,9 @@ const ContainerComponent: React.FC<{}> = () => {
   useEffect(() => {
     if (isActive && timeout !== 0) {
       clearInterval(timeout);
-      setTimeout(window.setInterval(intervalCallback, intervalValue))
+      setTimeout(window.setInterval(intervalCallback, intervalValue!))
     } else if (isActive && timeout === 0) {
-      setTimeout(window.setInterval(intervalCallback, intervalValue))
+      setTimeout(window.setInterval(intervalCallback, intervalValue!))
     } else if (!isActive) {
       clearInterval(timeout);
       setTimeout(0)
@@ -61,6 +72,7 @@ const ContainerComponent: React.FC<{}> = () => {
 
   const updateIntervalsValue = (value: number) => {
     setintervalValue(value)
+    localStorage.setItem('interval', value.toString())
   }
   const updateBeats = (value: number[]) => {
     setBeats(value)
@@ -75,12 +87,12 @@ const ContainerComponent: React.FC<{}> = () => {
       <button
         onClick={onButtonClick}
         className={
-          !isActive
-            ? 'waves-effect waves-light btn-large m5 teal accent-4'
-            : 'waves-effect waves-light btn-large m5 blue-grey lighten-3'
+          isActive
+            ? 'waves-effect waves-light btn-large m5 blue-grey lighten-3'
+            : 'waves-effect waves-light btn-large m5 teal accent-4'
         }
       >
-        {!isActive ? 'Start' : 'Stop'}
+        {isActive ? 'Stop' : 'Start'}
       </button>
       <TapTempo
         updateIntervalsValue={updateIntervalsValue}
