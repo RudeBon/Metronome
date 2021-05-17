@@ -30,34 +30,22 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, int
         setBPM(+e.currentTarget.value);
     }
 
-    const handleControllers = (event: React.MouseEvent, action: string) => {
-        switch (action) {
-            case 'increase10':
-                if (bpm! >= maxBpm - 10) {
-                    setBPM(maxBpm)
-                    return
-                }
-                setBPM(prev => prev! + 10)
-                break;
-            case 'decrease10':
-                if (bpm! <= minBpm + 10) {
-                    setBPM(minBpm)
-                    return
-                }
-                setBPM(prev => prev! - 10)
-                break;
-            case 'increase':
-                if (bpm === maxBpm) {
-                    return
-                }
-                setBPM(prev => prev! + 1)
-                break;
-            case 'decrease':
-                if (bpm === minBpm) {
-                    return
-                }
-                setBPM(prev => prev! - 1)
-                break;
+    const handleControllers = {
+        decrease(n: number) {
+            const decreasedBpm = bpm! - n;
+            if (decreasedBpm < minBpm) {
+                setBPM(minBpm)
+                return
+            }
+            setBPM(prev => prev! - n)
+        },
+        increase(n: number) {
+            const increasedBpm = bpm! + n;
+            if (increasedBpm > maxBpm) {
+                setBPM(maxBpm)
+                return
+            }
+            setBPM(prev => prev! + n)
         }
     }
 
@@ -67,16 +55,17 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, int
             <div className="controllersContainer">
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers(event, 'decrease10')}
+                    onClick={event => handleControllers.decrease(10)}
                 >
                     -10
                 </div>
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers(event, 'decrease')}
+                    onClick={event => handleControllers.decrease(1)}
                 >
                     <i className="material-icons">remove</i>
                 </div>
+
                 <p className="range-field">
                     <input
                         type="range"
@@ -88,13 +77,13 @@ const BPMController: React.FC<BPMControllerProps> = ({ updateIntervalsValue, int
                 </p>
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers(event, 'increase')}
+                    onClick={event => handleControllers.increase(1)}
                 >
                     <i className="material-icons">add</i>
                 </div>
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers(event, 'increase10')}
+                    onClick={event => handleControllers.increase(10)}
                 >
                     +10
                 </div>
