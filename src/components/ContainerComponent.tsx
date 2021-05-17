@@ -7,7 +7,7 @@ const soundPath = require('../assets/sounds/boop.mp3')
 const stressedSoundPath = require('../assets/sounds/stressedBoop.mp3')
 
 const ContainerComponent: React.FC<{}> = () => {
-  const [beats, setBeats] = useState<number[]>([0, 1, 2, 3]);
+  const [beats, setBeats] = useState<number[]>([]);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [intervalValue, setintervalValue] = useState<number | null>(null);
@@ -24,15 +24,20 @@ const ContainerComponent: React.FC<{}> = () => {
       sound.play();
     }
   }
-  
+
   useEffect(() => {
     const intervalFromLocalstorage = localStorage.getItem('interval');
     if (intervalFromLocalstorage != null) {
-      console.log('there is interval');
       setintervalValue(+intervalFromLocalstorage)
     } else {
       setintervalValue(760);
-      console.log('no interval');
+    }
+
+    const beatsFromLocalstorage = localStorage.getItem('beats');
+    if (beatsFromLocalstorage != null) {
+      setBeats(JSON.parse(beatsFromLocalstorage))
+    } else {
+      setBeats([0, 1, 2, 3]);
     }
   }, [])
 
@@ -75,7 +80,8 @@ const ContainerComponent: React.FC<{}> = () => {
     localStorage.setItem('interval', value.toString())
   }
   const updateBeats = (value: number[]) => {
-    setBeats(value)
+    setBeats(value);
+    localStorage.setItem('beats', JSON.stringify(value))
   }
   const onToggle = () => {
     setIsStressed(prev => !prev)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 type BeatsAmountControllerProps = {
     beats: number[]
@@ -12,6 +12,10 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
     const [amount, setAmount] = useState<number>(beats.length);
     const minAmount: number = 2;
     const maxAmount: number = 12;
+
+    useEffect(() => {
+        setAmount(beats.length)
+    }, [beats])
 
     const handleControllers = (event: React.MouseEvent, action: string) => {
         console.log('controllers click', action);
