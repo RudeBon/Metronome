@@ -17,22 +17,23 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
         setAmount(beats.length)
     }, [beats])
 
-    const handleControllers = (type: string) => {
-        const operations: { [key: string]: () => number[]; } = {
-            'increase': function (): number[] {
-                if (amount === maxAmount) {
-                    return beats
-                }
-                return beats.concat(beats.length)
-            },
-            'decrease': function (): number[] {
-                if (amount === minAmount) {
-                    return beats
-                }
-                return beats.slice(0, beats.length - 1)
+    const beatsOperations = {
+        increase(): number[] {
+            if (amount === maxAmount) {
+                return beats
             }
+            return beats.concat(beats.length)
+        },
+        decrease(): number[] {
+            if (amount === minAmount) {
+                return beats
+            }
+            return beats.slice(0, beats.length - 1)
         }
-        const newArr: number[] = operations[type]();
+    }
+
+    const handleControllers = (cb: () => number[]) => {
+        const newArr: number[] = cb();
         updateBeats(newArr);
         setAmount(beats.length);
     }
@@ -42,14 +43,14 @@ const BeatsAmountController: React.FC<BeatsAmountControllerProps> = ({
             <div className="controllersContainer">
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers('decrease')}
+                    onClick={event => handleControllers(beatsOperations.decrease)}
                 >
                     <i className="material-icons">remove</i>
                 </div>
                 <h5 className="m5">{amount}</h5>
                 <div
                     className='waves-effect waves-light btn-small blue-grey lighten-4'
-                    onClick={event => handleControllers('increase')}
+                    onClick={event => handleControllers(beatsOperations.increase)}
                 >
                     <i className="material-icons">add</i>
                 </div>
