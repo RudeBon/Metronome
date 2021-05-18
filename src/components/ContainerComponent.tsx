@@ -7,10 +7,10 @@ const soundPath = require('../assets/sounds/boop.mp3')
 const stressedSoundPath = require('../assets/sounds/stressedBoop.mp3')
 
 const ContainerComponent: React.FC<{}> = () => {
-  const [beats, setBeats] = useState<number[]>([]);
+  const [beats, setBeats] = useState<number[]>(() => checkLocalstorageBeats());
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [intervalValue, setintervalValue] = useState<number | null>(null);
+  const [intervalValue, setintervalValue] = useState<number | null>(() => checkLocalstorageInterval());
   const [timeout, setTimeout] = useState<any>(0);
   const [isStressed, setIsStressed] = useState<boolean>(false);
 
@@ -25,21 +25,23 @@ const ContainerComponent: React.FC<{}> = () => {
     }
   }
 
-  useEffect(() => {
+  function checkLocalstorageInterval(): number {
     const intervalFromLocalstorage = localStorage.getItem('interval');
     if (intervalFromLocalstorage != null) {
-      setintervalValue(+intervalFromLocalstorage)
+      return +intervalFromLocalstorage;
     } else {
-      setintervalValue(760);
+      return 760;
     }
+  }
 
+  function checkLocalstorageBeats(): number[] {
     const beatsFromLocalstorage = localStorage.getItem('beats');
     if (beatsFromLocalstorage != null) {
-      setBeats(JSON.parse(beatsFromLocalstorage))
+      return JSON.parse(beatsFromLocalstorage);
     } else {
-      setBeats([0, 1, 2, 3]);
+      return [0, 1, 2, 3];
     }
-  }, [])
+  }
 
   const intervalCallback = () => {
     let actual = null
