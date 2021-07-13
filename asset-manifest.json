@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Metronome/static/css/main.756d81c8.chunk.css",
-    "main.js": "/Metronome/static/js/main.296d3db7.chunk.js",
-    "main.js.map": "/Metronome/static/js/main.296d3db7.chunk.js.map",
+    "main.js": "/Metronome/static/js/main.3a4f2e65.chunk.js",
+    "main.js.map": "/Metronome/static/js/main.3a4f2e65.chunk.js.map",
     "runtime-main.js": "/Metronome/static/js/runtime-main.0f8b601d.js",
     "runtime-main.js.map": "/Metronome/static/js/runtime-main.0f8b601d.js.map",
     "static/js/2.8c383d57.chunk.js": "/Metronome/static/js/2.8c383d57.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0f8b601d.js",
     "static/js/2.8c383d57.chunk.js",
     "static/css/main.756d81c8.chunk.css",
-    "static/js/main.296d3db7.chunk.js"
+    "static/js/main.3a4f2e65.chunk.js"
   ]
 }
