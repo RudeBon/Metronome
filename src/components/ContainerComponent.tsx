@@ -41,7 +41,38 @@ const ContainerComponent: React.FC<{}> = () => {
     } else {
       return [0, 1, 2, 3];
     }
+  }  
+
+  const handleKeyEvents = () => {
+    window.addEventListener('keypress', e => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        setIsActive(prev => !prev)
+        if (isActive) {
+          setActiveId(null)
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'w') {
+        if (intervalValue != null) {
+          setintervalValue(prev => prev! + 1);
+          localStorage.setItem('interval', intervalValue.toString())
+        }
+      } else if (e.key === 'ArrowDown' || e.key === 's') {
+        if (intervalValue != null) {
+          setintervalValue(prev => prev! - 1);
+          localStorage.setItem('interval', intervalValue.toString())
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'a') {
+        setBeats(prev => prev.slice(0, prev.length - 1));
+        localStorage.setItem('beats', JSON.stringify(beats))
+      } else if (e.key === 'ArrowRight' || e.key === 'd') {
+        setBeats(prev => prev.concat(prev.length));
+        localStorage.setItem('beats', JSON.stringify(beats))
+      }
+    });
   }
+
+  useEffect(() => {
+    handleKeyEvents();
+  }, [])
 
   const intervalCallback = () => {
     let actual = null
